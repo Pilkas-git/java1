@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h2>#{updatePlayerDetails.player.fullName}</h2>
+    <h:form>
+        <h:outputText value="Name: "/>
+        <h:inputText a:placeholder="first name" value="#{updatePlayerDetails.player.firstName}" required="true" />
+        <h:inputText a:placeholder="lastname" value="#{updatePlayerDetails.player.lastName}" required="true" />
+        <h:commandButton value="update" action="#{updatePlayerDetails.updatePlayer()}">
+            <f:param name="playerId" value="#{updatePlayerDetails.player.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:outputText value="Number: "/>
+        <h:inputText a:placeholder="enter the value" value="#{updatePlayerDetails.player.number}" required="true" />
+        <h:commandButton value="update" action="#{updatePlayerDetails.updatePlayer()}">
+            <f:param name="playerId" value="#{updatePlayerDetails.player.id}" />
+        </h:commandButton>
+        <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+    </h:form>
+
+    <h:form>
+        <h:outputText value="position :"/>
+        <h:inputText a:placeholder="enter the value" value="#{updatePlayerDetails.newPosition}" required="true" />
+        <h:commandButton value="update" action="#{updatePlayerDetails.addPlayerPosition()}">
+            <f:param name="playerId" value="#{updatePlayerDetails.player.id}" />
+        </h:commandButton>
+        <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+    </h:form>
+
+    <h3>CurrentPositions:</h3>
+    <ol>
+        <ui:repeat value="#{playerPositions.player.positions}" var="position">
+            <li><h:link value="#{position.name}" outcome="positions?positionId=#{position.id}"/></li>
+        </ui:repeat>
+    </ol>
+
+    <h:form>
+        <h:outputText value="#{generatePlayerNumber.generationStatus}" />
+        <h:commandButton value="Generate player number?" disabled="#{generatePlayerNumber.generationRunning}" action="#{generatePlayerNumber.generateNewNumber()}">
+            <f:param name="playerId" value="#{updatePlayerDetails.player.id}"/>
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:outputText value="#{suggestPlayerPosition.generationStatus}" />
+        <h:commandButton value="Generate position suggestion?" action="#{suggestPlayerPosition.suggestPosition()}">
+            <f:param name="playerId" value="#{updatePlayerDetails.player.id}"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:link outcome="index" value="Back to home page"/>
+</h:body>
+</html>
