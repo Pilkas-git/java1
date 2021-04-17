@@ -4,23 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="lt.vu.mybatis.model.Team" alias="Team"/>
-        <typeAlias type="lt.vu.mybatis.model.Player" alias="Player"/>
-        <typeAlias type="lt.vu.mybatis.model.Position" alias="Position"/>
-        <typeAlias type="lt.vu.mybatis.model.PlayerPosition" alias="PlayerPosition"/>
+        <typeAlias type="lt.vu.mybatis.model.Universitygroup" alias="Group"/>
+        <typeAlias type="lt.vu.mybatis.model.Student" alias="Student"/>
+        <typeAlias type="lt.vu.mybatis.model.Subject" alias="Subject"/>
+        <typeAlias type="lt.vu.mybatis.model.StudentSubject" alias="StudentSubject"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="MANAGED"/>
             <dataSource type="JNDI">
-                <property name="data_source" value="PlayersDataSource"/>
+                <property name="data_source" value="StudentsDataSource"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis.xml/TeamMapper.xml"/>
-        <mapper resource="mybatis.xml/PlayerMapper.xml"/>
-        <mapper resource="mybatis.xml/PlayerPositionMapper.xml"/>
-        <mapper resource="mybatis.xml/PositionMapper.xml"/>
+        <mapper resource="mybatis.xml/UniversitygroupMapper.xml"/>
+        <mapper resource="mybatis.xml/StudentMapper.xml"/>
+        <mapper resource="mybatis.xml/StudentSubjectMapper.xml"/>
+        <mapper resource="mybatis.xml/SubjectMapper.xml"/>
     </mappers>
 </configuration>

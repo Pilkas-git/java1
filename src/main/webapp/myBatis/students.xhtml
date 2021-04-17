@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Students in #{studentsForGroup.group.name} group:</h2>
+    <ol>
+        <ui:repeat value="#{studentsForGroup.group.students}" var="student">
+            <li>#{student.fullName}</li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText a:placeholder="first name" value="#{studentsForGroup.studentToCreate.firstName}" required="true" />
+        <h:inputText a:placeholder="last name" value="#{studentsForGroup.studentToCreate.lastName}" required="true" />
+        <h:commandButton value="Add student to the group" action="#{studentsForGroup.createStudent}" >
+            <f:param name="groupId" value="#{studentsForGroup.group.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="/myBatis/groups" value="Back to groups page"/>
+</h:body>
+</html>

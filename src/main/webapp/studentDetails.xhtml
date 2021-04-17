@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h2>#{updateStudentDetails.student.fullName}</h2>
+    <h:form>
+        <h:outputText value="Name: "/>
+        <h:inputText a:placeholder="first name" value="#{updateStudentDetails.student.firstName}" required="true" />
+        <h:inputText a:placeholder="lastname" value="#{updateStudentDetails.student.lastName}" required="true" />
+        <h:commandButton value="update" action="#{updateStudentDetails.updateStudent()}">
+            <f:param name="studentId" value="#{updateStudentDetails.student.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:outputText value="Number: "/>
+        <h:inputText a:placeholder="enter the value" value="#{updateStudentDetails.student.number}" required="true" />
+        <h:commandButton value="update" action="#{updateStudentDetails.updateStudent()}">
+            <f:param name="studentId" value="#{updateStudentDetails.student.id}" />
+        </h:commandButton>
+        <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+    </h:form>
+
+    <h:form>
+        <h:outputText value="subject :"/>
+        <h:inputText a:placeholder="enter the value" value="#{updateStudentDetails.newSubject}" required="true" />
+        <h:commandButton value="update" action="#{updateStudentDetails.addStudentSubject()}">
+            <f:param name="studentId" value="#{updateStudentDetails.student.id}" />
+        </h:commandButton>
+        <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+    </h:form>
+
+    <h3>CurrentSubjects:</h3>
+    <ol>
+        <ui:repeat value="#{studentSubjects.student.subjects}" var="subject">
+            <li><h:link value="#{subject.name}" outcome="subjects?subjectId=#{subject.id}"/></li>
+        </ui:repeat>
+    </ol>
+
+    <h:form>
+        <h:outputText value="#{generateStudentNumber.generationStatus}" />
+        <h:commandButton value="Generate student number?" disabled="#{generateStudentNumber.generationRunning}" action="#{generateStudentNumber.generateNewNumber()}">
+            <f:param name="studentId" value="#{updateStudentDetails.student.id}"/>
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:outputText value="#{suggestStudentSubject.generationStatus}" />
+        <h:commandButton value="Generate position suggestion?" action="#{suggestStudentSubject.suggestSubject()}">
+            <f:param name="studentId" value="#{updateStudentDetails.student.id}"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:link outcome="index" value="Back to home page"/>
+</h:body>
+</html>

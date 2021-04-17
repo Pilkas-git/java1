@@ -8,14 +8,14 @@
 <h:body>
     <h2>Groups:</h2>
     <ol>
-        <ui:repeat value="#{groups.allGroups}" var="group">
+        <ui:repeat value="#{groupMyBatis.allGroups}" var="group">
             <li><h:link value="#{group.name}" outcome="students?groupId=#{group.id}" /></li>
         </ui:repeat>
     </ol>
     <h:form>
-        <h:inputText value="#{groups.groupToCreate.name}" required="true" />
-        <h:commandButton value="Add a new group" action="#{groups.createGroup}" />
+        <h:inputText value="#{groupMyBatis.groupToCreate.name}" required="true" />
+        <h:commandButton value="Add new group" action="#{groupMyBatis.createGroup}" />
     </h:form>
-    <h:link outcome="myBatis/groups" value="MyBatis implementation"/>
+    <h:link value="Back to index" outcome="/index"/>
 </h:body>
 </html>
