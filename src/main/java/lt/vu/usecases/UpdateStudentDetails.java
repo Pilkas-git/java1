@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Subject;
 import lt.vu.interceptors.LoggedInvocation;
-import lt.vu.persistence.StudentsDAO;
 import lt.vu.entities.Student;
 import lt.vu.persistence.SubjectsDAO;
+import lt.vu.persistence.interfaces.IStudentsDAO;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -30,7 +30,7 @@ public class UpdateStudentDetails implements Serializable {
     private String newSubject;
 
     @Inject
-    private StudentsDAO studentsDAO;
+    private IStudentsDAO studentsDAO;
 
     @Inject
     private SubjectsDAO subjectsDAO;
@@ -57,7 +57,7 @@ public class UpdateStudentDetails implements Serializable {
 
     @Transactional
     @LoggedInvocation
-    public String addStudentSubject() {
+    public String addStudentSubject(){
 
         try{
             List<Subject> subjects = student.getSubjects();

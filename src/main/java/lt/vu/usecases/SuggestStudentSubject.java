@@ -3,10 +3,11 @@ package lt.vu.usecases;
 import lt.vu.entities.Student;
 import lt.vu.entities.Subject;
 import lt.vu.interceptors.LoggedInvocation;
-import lt.vu.persistence.StudentsDAO;
 import lt.vu.persistence.SubjectsDAO;
+import lt.vu.persistence.interfaces.IStudentsDAO;
 import lt.vu.services.SubjectSuggester;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -25,22 +26,31 @@ public class SuggestStudentSubject implements Serializable {
     SubjectsDAO subjectsDAO;
 
     @Inject
-    StudentsDAO studentsDAO;
+    IStudentsDAO studentsDAO;
 
     @Inject
     SubjectSuggester subjectSuggester;
 
     private CompletableFuture<String> suggestionGenerationTask = null;
 
+    private Student student;
+    private List<Subject> subjects;
+
+    @PostConstruct
+    public void init() {
+        Map<String, String> requestParameters =
+                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Integer studentId = Integer.parseInt(requestParameters.get("studentId"));
+        student = studentsDAO.findOne(studentId);
+        subjects = subjectsDAO.loadAll();
+        subjects.removeAll(student.getSubjects());
+    }
+
     @LoggedInvocation
     public String suggestSubject() {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer studentId = Integer.parseInt(requestParameters.get("studentId"));
-        Student student = studentsDAO.findOne(studentId);
-        List<Subject> subjects = subjectsDAO.loadAll();
-        subjects.removeAll(student.getSubjects());
-
         suggestionGenerationTask = CompletableFuture.supplyAsync(() ->
                 subjectSuggester.suggestSubject(subjects));
 

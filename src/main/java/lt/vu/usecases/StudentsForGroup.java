@@ -13,10 +13,10 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.interceptors.LoggedInvocation;
-import lt.vu.persistence.StudentsDAO;
 import lt.vu.persistence.GroupsDAO;
 import lt.vu.entities.Student;
 import lt.vu.entities.Group;
+import lt.vu.persistence.interfaces.IStudentsDAO;
 
 @Model
 @Named
@@ -27,7 +27,7 @@ public class StudentsForGroup implements Serializable {
     private GroupsDAO groupsDAO;
 
     @Inject
-    private StudentsDAO studentsDAO;
+    private IStudentsDAO studentsDAO;
 
     @Getter @Setter
     private Group group;
@@ -35,12 +35,16 @@ public class StudentsForGroup implements Serializable {
     @Getter @Setter
     private Student studentToCreate = new Student();
 
+    @Getter @Setter
+    private int count;
+
     @PostConstruct
     public void init() {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Integer groupId = Integer.parseInt(requestParameters.get("groupId"));
         this.group = groupsDAO.findOne(groupId);
+        this.count = group.getStudents().size();
     }
 
     @Transactional

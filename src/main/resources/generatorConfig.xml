@@ -6,7 +6,7 @@
 <generatorConfiguration>
     <context id="studentsDB" targetRuntime="MyBatis3Simple">
         <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:~/h2database/DBZ9;AUTO_SERVER=TRUE"
+                        connectionURL="jdbc:h2:~/h2database/DBZ11;AUTO_SERVER=TRUE"
                         userId="sa"
                         password="sa">
         </jdbcConnection>

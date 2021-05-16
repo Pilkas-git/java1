@@ -6,7 +6,7 @@
     <!-- H2 Database -->
     <Resource id="StudentsDataSource" type="DataSource">
         JdbcDriver = org.h2.Driver
-        JdbcUrl = jdbc:h2:~/h2database/DBZ9;AUTO_SERVER=TRUE;
+        JdbcUrl = jdbc:h2:~/h2database/DBZ11;AUTO_SERVER=TRUE;
         UserName = sa
         Password = sa
         InitialSize = 1

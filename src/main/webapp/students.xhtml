@@ -10,6 +10,7 @@
     <h2>Students studying in #{studentsForGroup.group.name} group:</h2>
     <ol>
         <ui:repeat value="#{studentsForGroup.group.students}" var="student">
+            <p>#{studentsForGroup.count} </p>
             <li>
                 <h:link value="#{student.getFullName()} #{student.number}" outcome="studentDetails?studentId=#{student.id}" />
             </li>
@@ -18,7 +19,7 @@
     <h:form>
         <h:inputText a:placeholder="first name" value="#{studentsForGroup.studentToCreate.firstName}" required="true" />
         <h:inputText a:placeholder="last name" value="#{studentsForGroup.studentToCreate.lastName}" required="true" />
-        <h:commandButton value="Add student to the course" action="#{studentsForGroup.createStudent}" >
+        <h:commandButton value="Add student to the group" action="#{studentsForGroup.createStudent}" >
             <f:param name="groupId" value="#{studentsForGroup.group.id}" />
         </h:commandButton>
     </h:form>

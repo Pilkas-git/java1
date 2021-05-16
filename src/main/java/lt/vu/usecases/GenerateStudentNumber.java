@@ -3,6 +3,7 @@ package lt.vu.usecases;
 import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.services.NumberGenerator;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -20,6 +21,11 @@ public class GenerateStudentNumber implements Serializable {
 
     private CompletableFuture<Integer> numberGenerationTask = null;
 
+    @PostConstruct
+    private void printOnCreation() {
+        System.out.println("NEW BEAN FOR GENERATING STUDENT NUMBER CREATED");
+    }
+
     @LoggedInvocation
     public String generateNewNumber() {
         Map<String, String> requestParameters =
@@ -28,6 +34,10 @@ public class GenerateStudentNumber implements Serializable {
         numberGenerationTask = CompletableFuture.supplyAsync(() -> numberGenerator.generateNumber());
 
         return  "/studentDetails.xhtml?faces-redirect=true&studentId=" + requestParameters.get("studentId");
+    }
+
+    public void startWork() {
+        numberGenerationTask = CompletableFuture.supplyAsync(() -> numberGenerator.generateNumber());
     }
 
     public String getGenerationStatus() throws ExecutionException, InterruptedException {

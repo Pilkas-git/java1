@@ -10,6 +10,7 @@
     <ol>
         <ui:repeat value="#{groups.allGroups}" var="group">
             <li><h:link value="#{group.name}" outcome="students?groupId=#{group.id}" /></li>
+            <p>#{group.students.size()} </p>
         </ui:repeat>
     </ol>
     <h:form>

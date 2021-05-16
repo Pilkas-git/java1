@@ -27,7 +27,7 @@
     </h:form>
 
     <h:form>
-        <h:outputText value="subject :"/>
+        <h:outputText value="Subject :"/>
         <h:inputText a:placeholder="enter the value" value="#{updateStudentDetails.newSubject}" required="true" />
         <h:commandButton value="update" action="#{updateStudentDetails.addStudentSubject()}">
             <f:param name="studentId" value="#{updateStudentDetails.student.id}" />
@@ -46,11 +46,12 @@
         <h:outputText value="#{generateStudentNumber.generationStatus}" />
         <h:commandButton value="Generate student number?" disabled="#{generateStudentNumber.generationRunning}" action="#{generateStudentNumber.generateNewNumber()}">
             <f:param name="studentId" value="#{updateStudentDetails.student.id}"/>
+            <f:actionListener binding="#{generateStudentNumber.startWork()}"/>
         </h:commandButton>
     </h:form>
     <h:form>
         <h:outputText value="#{suggestStudentSubject.generationStatus}" />
-        <h:commandButton value="Generate position suggestion?" action="#{suggestStudentSubject.suggestSubject()}">
+        <h:commandButton value="Generate subject suggestion?" action="#{suggestStudentSubject.suggestSubject()}">
             <f:param name="studentId" value="#{updateStudentDetails.student.id}"/>
         </h:commandButton>
     </h:form>

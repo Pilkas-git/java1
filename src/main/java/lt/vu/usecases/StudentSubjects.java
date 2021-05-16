@@ -3,7 +3,7 @@ package lt.vu.usecases;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Student;
-import lt.vu.persistence.StudentsDAO;
+import lt.vu.persistence.interfaces.IStudentsDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class StudentSubjects implements Serializable {
 
     @Inject
-    private StudentsDAO studentsDAO;
+    private IStudentsDAO studentsDAO;
 
     @Getter @Setter
     private Student student;

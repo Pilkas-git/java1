@@ -37,7 +37,7 @@ public class Student implements Serializable {
     @Column(name = "Number")
     private Integer Number;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "Student_Subject",
             joinColumns = @JoinColumn(name = "Subject_Id"),
