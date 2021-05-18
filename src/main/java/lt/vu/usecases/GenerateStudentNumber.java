@@ -36,13 +36,9 @@ public class GenerateStudentNumber implements Serializable {
         return  "/studentDetails.xhtml?faces-redirect=true&studentId=" + requestParameters.get("studentId");
     }
 
-    public void startWork() {
-        numberGenerationTask = CompletableFuture.supplyAsync(() -> numberGenerator.generateNumber());
-    }
-
     public String getGenerationStatus() throws ExecutionException, InterruptedException {
         if (numberGenerationTask == null) {
-            return null;
+            return "";
         } else if (isGenerationRunning()) {
             return "Number generation in progress";
         }

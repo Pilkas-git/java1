@@ -46,7 +46,6 @@
         <h:outputText value="#{generateStudentNumber.generationStatus}" />
         <h:commandButton value="Generate student number?" disabled="#{generateStudentNumber.generationRunning}" action="#{generateStudentNumber.generateNewNumber()}">
             <f:param name="studentId" value="#{updateStudentDetails.student.id}"/>
-            <f:actionListener binding="#{generateStudentNumber.startWork()}"/>
         </h:commandButton>
     </h:form>
     <h:form>

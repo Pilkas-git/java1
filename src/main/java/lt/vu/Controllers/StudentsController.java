@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lt.vu.Controllers.contracts.StudentDTO;
 import lt.vu.entities.Student;
-import lt.vu.persistence.StudentsDAO;
+import lt.vu.persistence.interfaces.IStudentsDAO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,13 +14,15 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
+
 @ApplicationScoped
 @Path("/students")
 public class StudentsController {
 
     @Inject
     @Getter @Setter
-    private StudentsDAO studentsDAO;
+    private IStudentsDAO studentsDAO;
 
     @Path("/{id}")
     @GET
@@ -59,7 +61,7 @@ public class StudentsController {
     @Path("/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
+    @Transactional(REQUIRES_NEW)
     public Response update(
             @PathParam("id") final Integer studentId,
             StudentDTO studentData,

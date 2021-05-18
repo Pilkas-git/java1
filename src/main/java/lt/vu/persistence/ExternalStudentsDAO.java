@@ -17,7 +17,7 @@ public class ExternalStudentsDAO extends StudentsDAO{
     private EntityManager em;
 
     public void persist(Student student){
-        student.setNumber(1110000+student.getNumber());
+        student.setNumber(1110000);
         this.em.persist(student);
     }
 }

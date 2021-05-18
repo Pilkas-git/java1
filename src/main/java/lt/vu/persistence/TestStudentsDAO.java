@@ -3,9 +3,13 @@ package lt.vu.persistence;
 import lt.vu.entities.Student;
 import lt.vu.persistence.interfaces.IStudentsDAO;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
+@Alternative
 public class TestStudentsDAO implements IStudentsDAO {
 
     @Override
